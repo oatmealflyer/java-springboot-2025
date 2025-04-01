@@ -10,6 +10,21 @@ public class Spring01Application {
 		SpringApplication.run(Spring01Application.class, args);
 
 		System.out.println("Hello, Spring Boot");
+
+		//변수연습
+		int account = 10000000; 
+		System.out.println("계좌금액은"+account);
+		float pi = 3.141592f;
+		System.out.println("Pi는" + pi);
+		char ch_first = 'A';
+		System.out.println("문자는"+ch_first);
+
+		// 연산자 연습 
+		int a = 17 ;
+		int b = 24;
+		System.out.printf("a+b= %d\n", a+b);
+		float divresult = a/b; 
+		System.out.printf("a/b=%f\n", divresult);
 	}
 
 }

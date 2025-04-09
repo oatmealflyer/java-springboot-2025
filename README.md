@@ -79,6 +79,9 @@
     - Gradle(빌드툴)검색
         - Gradle for Java 설치
 ### Spring Boot 기본 실행(Java 프로젝트)
+- JDK버전과 Spring Boot Initializr 에 선택하는 JDK버전이 일치해야 
+    - OS에 JDK버전이 17버전이면 17선택 
+
 - VS Code에서 명령팔레트 실행 
     - Spring Initiallizr : Create a Maven Project 선택 
     - Specify Spring Boot version: 3.3.10 (SNAPSHOT) 
@@ -165,7 +168,122 @@
   - VS Code 재시작. 
 
 ## 5일차 
-- Spring Boot 시작 
+### Spring Boot 웹실행
+- 프로젝트 초기화 
+    - Spring Initializr : Create a gradle project ... 
+    - Specify Spring Boot version : 3.4.4 
+    - Specify project language : Java 
+    - Input Group Id : com.oatmealflyer(각자 설정할 것)
+    - Input Artifact Id: spring03
+    - Specify packaging type:java  
+    - Specify Java version : 17 
+    - Choose dependencies : Selected 1 dependencies 
+        - Spring Web 
+    - 저장위치 선택 
+    - **새창 열기 ** - Spring Boot 프로젝트가 루트폴더가 된 개발환경 
+
+- 포트번호 
+    |프로토콜|포트번호|비고|
+    |:---|---|:---|
+    |HTTP|80|웹 서버,서비스 포트(보안취약)|
+    |HTTPS|443|SSL를 적용한 웹 서버,서비스(보안강화)|
+    |FTP|21|웹을 통한 파일전송| 
+    |TELNET|원격서버접속 서비스|
+    |SSH|22|보안강화된 텔넷| 
+    |SMTP|25|메일 전송서비스
+
+- 개발용 포트
+    - 포트는 중복안됨 
+    - 8080 포트를 사용하고 있으면 다른 포트로 변경해야 함
+    - 포트 변경시 application.properties에 `server.port = 8090` 추가
+
+- 웹 브라우저 열기 
+    - http://localhost:8090/ 오픈 
+
+    <img src="./image/sb0006.png" width= "700">
+
+- 접속위치 요청 처리 
+     - 컨트롤러 생성
+         - HelloController 클래스 생성 
+         - http://localhost:8090/hello
+     - 각 기능별로 패키지를 구분
+        - controller , model 등 ...
+- Log-back 
+    - 스프링부트에 내장된 로그 모듈 
+
+    - application.properties 내 로그 설정 
+
+    ```groovy
+    logging.level.root = info 
+    logging.file.name = /logtest.log 
+    ```
+- 사용 시 
+```java
+// 클래스 내 작성 
+private final 
+```
+
+### 스프링 부트 배너 (중요도 없음)
+- resources 폴더에 banner.txt 생성 
+- 내용 추가 
+- Spring Boot Banner Generator (https://devops.datenkollektiv.de/banner.txt/index.html)
+- 배너제너레이터로 생성한 글자 복사 banner.txt 붙여넣기 
+- 서버 재시작 
+<img src="./image/sb0009.png">
+
+### 스프링부트 프로젝트 구조 
+<img src="">
+
+- 각 폴더 구조
+    - .gradle ~ gradle : 그레이들, VSCode, 빌드 등에 필요한 폴더(설명필요X)
+    - `src/main/java` : 패키지와 자바 소스가 저장되는 위치
+    - com.hugo83.spring03 : 패키지. 폴더로 구성
+        - HelloController 클래스에 접근하려면
+        - com.hugo83.spring03.controller.HelloController 접근해야 함
+    - Spring03Application.java : 시작프로그램
+    - src/main/resources : 자바파일 이외 HTML, CSS, JS, 환경파일 등 리소스파일 저장되는 위치
+        - `static` : CSS, JS, 이미지 파일 저장되는 곳
+        - `templates` : 스프링부트와 연계되는 HTML 파일 저장되는 곳
+        - `application.properties` : 프로젝...
+
+#### 어노테이션 
+- 한글로 주석이지만 , #, //,/**/ 소스에 영향을 미치지 않는 주석과 다름 
+- 자바 소스에 추가해서 여러가지 기능을 수행하는 메타데이터 일종 
+- @로 시작,JDK 1.5 이상부터 사용가능 
+- 클래스 파일에 같이 포함된 JVM 작동시 실행됨 
+- 클래스, 메서드 바로 위에 작성. 코드와 설정을 관리할 수 있게 도와주는 역할
+
+###### 1. @Override 
+- 오버라이드를 올바르게 했는지 컴파일러 체크 
+- 상속 , 인터페이스 구현시 사용 
+
+##### 2. @Deprecated 
+- 앞으로 다음버전에서 삭제될 수 있음. 사용하지 말것을 권유하는 체크 
+<img src ="./image/sb0011.png" width="700">
+
+- 되돌기염ㄴ 이 함수 는 사용하지 말 것 
+
+###### 3. FunctionalInterface 
+- 함수형 인터페이스에 붙여서, 컴파일러가 올바르게 작성되었는지 체크 
+
+##### 4. @SuppressWarnings 
+- 컴파일러의 경고메시지가 표시되지 않음
+
+#### @SpringBootApplication 
+- 스프링부트 자동구성 매커니즘 활성화 
+- 어플리캐이션 내 패키지에서 컴포너트를 스캐닝 
+- 설정 클래스 임포트해서 활성화, 스프링부트 실행 
+
+#### @Controller 
+- 컴포넌트 구체화해서 해당클래스 IoC컨테이너 Bean으로 등록 
+
+#### @GetMapping 
+- Get,Post 중 Get(URL)으로 들어주는 주소를 매핑. 처리해주는 역할 
+- @PostMapping , @RequestMapping 등 파악 
+#### @ReponseBody 
+- HTTP 요청의 자바객체가 처리한 body내용을 매핑하는 역할 
+- 자바의 String 문자열을 웹페이지에 렌더링. 
+
 
 ## 6일차(06-26)
 

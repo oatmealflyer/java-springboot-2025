@@ -595,3 +595,6 @@
     ```
     2. 레이아웃 템프릿 페이지 작성
     3. board_list.html 에 적용
+                  https://github.com/user-attachments/assets/86d69d56-da8b-400a-b8db-ccc6c887e70e
+
+

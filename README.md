@@ -537,8 +537,10 @@
    - @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE) : 1대다 관계에서 부모 클래스에 작성하는 부분
    - @ManyToOne : 다대 1 ERD 관계로 자식클래스에 작성하는 부분
    - @Service: 서비스 머듈을 지칭 (SpringFramework)
-   - @RequiredArgsConstructor : 생성자를 만들어줌 .파라미터가 존재하는 생성자를 자동으로 생성
+   - @RequiredArgsConstructor : final등의 멤버 변수를 파라미터로 생성자를 만들어주는 것(Lombok)
+
      (Lombok)
+
    - @NoArgsConstructor : 파라미터 없는 빈생성자를 자동으로 생성(Lombok)
 
    4. ReplyRepository 작성
@@ -569,32 +571,52 @@
 
 1. thymleaf 문법
 
+   - ${} : 변수표현식 .변수에 들어있는 값을 화면에 표시하는 기능. Model에 들어있는 데이터를 화면에 표시
+   - @{} : URL링크 표현식. 정적인 링크 또는 라우팅되는 경로를 생성하는 기능
+   - #{} : 메세지 표현식
+   - \*{} : 선택변수 표현식. th:object 로 선택된 객체 내의 값에 접근
+   - ~{} : Fragment 포함 표현식 .템플릿 Fragment를 사용
+   - thymeleaf 속성에만 사용가능 : th:text,th:href ...
 
-    - ${} : 변수표현식 .변수에 들어있는 값을 화면에 표시하는 기능. Model에 들어있는 데이터를 화면에 표시
-    - @{} : URL링크 표현식. 정적인 링크 또는 라우팅되는 경로를 생성하는 기능
-    - #{} : 메세지 표현식
-    - thymeleaf 속성에만 사용가능 : th:text,th:href ...
-
-4. 웹 페이지 디자인
+1. 웹 페이지 디자인
 1. resources/static : css,js,정적 html 파일들이 위치
 1. static/main.css : 전체에서 사용할 css 파일
 1. Bootstrap 적용
 
+   - https://getbootstrap.com Currently v5.3.7 · Download
+   - https://github.com/twbs/icons/releases/tag/v1.13.1
 
-      - https://getbootstrap.com Currently v5.3.7 · Download
-      - https://github.com/twbs/icons/releases/tag/v1.13.1
-    4. board_detail.html : 부트스트랩 적용
+   4. board_detail.html : 부트스트랩 적용
 
-5. 전체 HTML에 디자인 적용
+1. 전체 HTML에 디자인 적용
 1. build.gradle에 thymeleaf-layout 의존성 추가
 
+   ```gradle
+     //Thymeleaf layout 의존성 추가. 250701 신규추가 .oatmealflyer
+     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+   ```
 
-    ```gradle
-      //Thymeleaf layout 의존성 추가. 250701 신규추가 .oatmealflyer
-      implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
-    ```
-    2. 레이아웃 템프릿 페이지 작성
-    3. board_list.html 에 적용
-                  https://github.com/user-attachments/assets/86d69d56-da8b-400a-b8db-ccc6c887e70e
+   2. 레이아웃 템프릿 페이지 작성
+   3. board_list.html 에 적용
+      https://github.com/user-attachments/assets/86d69d56-da8b-400a-b8db-ccc6c887e70e
 
+## 8일차
 
+### 스프링부트 BackBoard 프로젝트(계속)
+
+3. DB 연동 개발
+1. 게시글 등록 기능
+1. Spring Boot Validation 기능 추가 : 입력 검증
+
+```gradle
+//추가 의존성
+implementation 'org.springframework.boot:spring-boot-starter-validations'
+```
+
+- Annotation 으로 검증 수행 :
+  - @Size, @NotNull , @NotEmpty ,@Past(과거 날짜만 가능), @Future(미래날짜만)
+  - @FutureOrPresent(미래 또는 오늘 날짜만 ), @Pattern(정규식패턴)
+
+3. 입력검증 클래스 , BoardForm.java 생성
+4. BoardForm 객체를 컨트롤러에 전달
+5. board_create.html에 입력검증 태그 , 속성 등 추가

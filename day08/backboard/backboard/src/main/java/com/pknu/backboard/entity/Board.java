@@ -3,6 +3,7 @@ package com.pknu.backboard.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+// import org.springframework.cglib.core.Local;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -23,9 +24,9 @@ import lombok.*;
 @Getter
 @Setter // 롬복으로 Gettter/ Setter 자동화
 @Entity // JPA 테이블 매핑 선언
-
+@AllArgsConstructor
+@NoArgsConstructor
 public class Board {
-
   @Id // PK
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long bno; // Board 테이블의 PK, bno

@@ -11,7 +11,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import com.pknu.backboard.entity.Board;
 import com.pknu.backboard.repository.BoardRepository;
 
@@ -99,5 +98,17 @@ class BackboardApplicationTests {
 
 		// 테스트 내용 그대로 JPA 코딩시 사용가능
 
+	}
+
+	@Test // INSERT INTO 200개만
+	void testInsertDummyJpa() {
+		for (int i = 0; i < 200; i++) {
+			Board board = new Board();
+			board.setTitle(String.format("테스트 더미데이터입니다 %03d", i));
+			board.setContent("특별한 내용은 없습니다");
+			board.setCreateDate(LocalDateTime.now());
+			this.boardRepository.save(board);
+
+		}
 	}
 }

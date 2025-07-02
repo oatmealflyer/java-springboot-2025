@@ -1,7 +1,7 @@
 package com.pknu.backboard.controller;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +18,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 // import org.springframework.web.bind.annotation.RequestBody;
 
@@ -30,11 +31,19 @@ public class BoardController {
   @Autowired
   private final BoardService boardService;
 
-  @GetMapping("/list") // 각 상세 URL만 작성
-  public String getList(Model model) {
-    List<Board> boardList = this.boardService.getBoardList();
+  // @GetMapping("/list") // 각 상세 URL만 작성
+  // public String getList(Model model) {
+  // List<Board> boardList = this.boardService.getBoardList();
 
-    model.addAttribute("boardList", boardList);
+  // model.addAttribute("boardList", boardList);
+  // return "board_list"; // board_list.html 필요 <-템플릿없다 에러 나면 체크해보삼
+  // }
+
+  @GetMapping("/list") // 각 상세 URL만 작성
+  public String getList(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+    Page<Board> boardPaging = this.boardService.getBoardList(page);
+
+    model.addAttribute("boardPaging", boardPaging);
     return "board_list"; // board_list.html 필요 <-템플릿없다 에러 나면 체크해보삼
   }
 

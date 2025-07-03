@@ -34,6 +34,10 @@ dependencies {
 	//추가 의존성 
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+	// 스프링시큐리티 설정
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
 	//Thymeleaf layout 의존성 추가. 250701 신규추가 .oatmealflyer
   implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 	

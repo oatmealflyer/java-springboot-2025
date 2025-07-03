@@ -473,9 +473,9 @@
         - `@Entity` : 테이블화 할 객체 선언
         - @Id : 테이블 PK
         - @GeneratedValue(strategy = GenerationType.SEQUENCE)
-          - AUTO : MySQL Auto Increment
-          - IDENTITY : SQLServer Identity(1, 1)
-          - SEQUENCE : Oracle Sequence
+          - AUTO : JPA가 자동 선별 . 사용 지양 
+          - `IDENTITY` : SQLServer Identity(1, 1) ,MySQL Auto-Increment 
+          - `SEQUENCE` : Oracle Sequence
           - H2 DB를 오라클 타입으로 사용하고, 나중에 운영DB를 오라클로 갈아타겠다!
       - @Column : 컬럼의 속성을 변경 (ex: @Column(name="subject", length = 250))
         - name : DB상의 실제 컬럼명을 엔티티와 다르게 사용할 때
@@ -669,6 +669,9 @@
       - MyBatis로 작업된 SpringBoot : 쿼리 변경, 도메인변경,html까지 세군데 수정 
       - JPA로 작업된 Spring Boot : html만 수정하면 끝 ! 
       - board_list.html의 제목 태그에 추가 
+
+      <img src="./image/sb0016.png" width="600" height="350">
+
 2. Spring Boot Security: 회원가입, 로그인 등은 손쉽게 개발하도록 도와주는 의존성 라이브러리 
   1. 시큐리티 설치 
     ```gradle 
@@ -679,6 +682,19 @@
   2. 로그인 화면 H2 DB 사용 불가 
     - 기본 사용자 :user 
     - 패스워드 : Spring Boot 로그에 표시()
-  
+
   3. 스프링 시큐리티 설정
+    1. /security/SecurityConfig 클래스 생성 
   
+  4. 웹 보안용어
+       - CORS : Cross-origin Resource Sharing
+         - 기본적으로 서로 다른 오리진(웹서버)인 경우 리소스를 서로 사용할 수 없음 (사용하면 해킹!!)
+       - CSRF : Cross-Site Request Forgery
+         - 명시적인 동의 없이 사용자를 대신해서 웹 앱이 악의적인 행동을 취하는 공격
+
+  5. 스프링 시큐리티 설정(계속)
+    1. SecurityConfig 클래스 내 filterChain 메서드에 CSRF 등 관련 설정 추가 
+
+  6. 회원가입 구현  
+    1. Member 엔티티 클래스 생성
+    2. MemberRepository 인터페이스 생성 

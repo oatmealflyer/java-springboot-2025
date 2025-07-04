@@ -6,17 +6,32 @@
       <div class="col">
           <!-- 게시판 상세글 -->
           <!-- <h2 class="border-botton py-2 text-primary" th:text="${board.title}"></h2> -->
-          <div class="card my-3 shadow-sm">
+          <div class="card my-1 shadow-sm">
               <div class="card-body">
                   <h3 class="card-title" th:text="${board.title}"></h3>
                   <div class="card-text" th:text="${board.content}"></div>
                   <div class="d-flex justify-content-end">
                       <div class="badge bg-light text-dark p-1 text-start">
-                        <div th:text="${#temporals.format(board.createDate,'yyyy-MM-dd HH:mm')}"></div>
+                        <div class="mb-1">
+                           <span th:if="${board.writer != null}" th:text="${board.writer.username}"></span>
+                           <span>/</span>
+                           <span th:text="${#temporals.format(board.createDate,'yy-MM-dd HH:mm')}"></span>
+                        </div>
                       </div>
                   </div>
               </div>
           </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <!-- 게시글 작성자가 있고, 현재 로그인한 사용자의 이름과 작성자 이름이 동일해야 수정가능 -->
+        <div class="d-flex justify-content-end" 
+          th:if="${board.writer!=null and #authentication.getPrincipal().getUsername()== board.writer.username}"
+          sec:authorize="isAuthenticated()">
+          <a th:href="@{|/board/modify/${board.bno}|}" class="btn btn-sm btn-warning">수정</a>
+        </div>
       </div>
     </div>
 
@@ -28,11 +43,20 @@
      </div>
 
      <!-- 댓글 리스트영역 -->
-     <div class="row">
+     <div class="row mt-2">
         <div class="col">
           <div class="card my-2" th:each="reply : ${board.replyList}" >
             <div class="card-body">
               <div class="card-text" th:text="${reply.content}"></div>
+              <div class="d-flex justify-content-end">
+                      <div class="badge bg-light text-dark p-1 text-start">
+                        <div class="mb-1">
+                           <span th:if="${reply.writer != null}" th:text="${reply.writer.username}"></span>
+                           <span>/</span>
+                           <span th:text="${#temporals.format(reply.createDate,'yy-MM-dd HH:mm')}"></span>
+                        </div>
+                      </div>
+                  </div>
               <div th:text="${#temporals.format(board.createDate,'yyyy-MM-dd HH:mm')}"></div>
             </div>
           </div>
@@ -46,7 +70,9 @@
          <!-- 댓글 내용영역  -->
         <textarea th:field="*{content}" rows="5" class="form-control mb-1"></textarea>
         <div class="text-end">
-          <input type="submit" value="댓글저장" class="btn btn-sm btn-primary">
+          <!-- 로그인을 안하면 아예 버튼이 표시되지 않음 -->
+          <input sec:authorize="isAuthenticated()" type="submit" value="댓글저장" class="btn btn-sm btn-primary">
+          <input sec:authorize="isAnonymous()" type="submit" value="댓글저장" class="btn btn-sm btn-primary disabled">
           <a href="/board/list" class="btn btn-sm btn-success">리스트</a>
         </div>
       </form>

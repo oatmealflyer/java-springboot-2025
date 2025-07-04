@@ -5,9 +5,10 @@
                 <table class="table">
                     <thead class="table-light">
                         <tr>
-                            <th>순번</th>
-                            <th>제목</th>
-                            <th>작성일자</th>
+                            <th class="text-center">순번</th>
+                            <th class="text-center">제목</th>
+                            <th class="text-center">작성자</th>
+                            <th class="text-center">작성일자</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -20,13 +21,11 @@
                                     th:text="${#lists.size(board.replyList)}" 
                                     class="badge text-bg-success">
                                 </span>
-                                <div class="position-relative d-inline-block">
-                                    <i class="bi bi-heart-fill fs-5 text-danger">
-                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pll bg-secondary">5</span>
-                                    </i>
-                                </div>
                             </td>
-                            <td th:text = "${#temporals.format(board.createDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td>
+                                <span th:if="${board.writer != null}" th:text="${board.writer.username}"></span>
+                            </td>
+                            <td th:text = "${#temporals.format(board.createDate, 'yy-MM-dd HH:mm')}"></td>
                         </tr>
                     </tbody>
                 </table>

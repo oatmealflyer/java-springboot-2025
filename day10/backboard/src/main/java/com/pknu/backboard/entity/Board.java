@@ -26,6 +26,7 @@ import lombok.*;
 @Entity // JPA 테이블 매핑 선언
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder //객체 생성을 간단하게, 체인메서드 사용가능 
 public class Board {
   @Id // PK
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -38,6 +39,10 @@ public class Board {
   @Column(length = 8000)
   private String content; // 게시글 내용
 
+  //작성자 추가 
+  @ManyToOne //사용자가 여러개의 글을 작성 가능 
+  private Member writer; 
+
   @CreatedDate
   @Column(updatable = false) // 한번 작성후 수정하지 않음
   private LocalDateTime createDate; // 게시글 작성일
@@ -48,4 +53,5 @@ public class Board {
   // ERD 1:N를 만드는 법
   @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE) // 부모가 날라갔는데 자식도 날라가야지
   private List<Reply> replyList; // 같은 패키지 Entity 내에 들어있으니 별 문제 없죠
+
 }

@@ -818,6 +818,11 @@
     4. board_create.html th:action을 삭제 , 등록과 수정을 동시에 처리할 수 있는 hidden태그를 작성 
     5. BoardController에 수정 PostMapping 메서드 추가 
 
+
+
+https://github.com/user-attachments/assets/906a806c-018f-4053-8ca4-4fba52c4f9d4
+
+
 ## 11일차 
 ## 스프링부트 Backboard 프로젝트(계속)
 5. DB 테이블 연동 작업(계속)

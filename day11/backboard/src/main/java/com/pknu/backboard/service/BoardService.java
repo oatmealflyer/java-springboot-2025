@@ -32,13 +32,15 @@ public class BoardService {
   }
 
   // 페이징용 게시판 조회메서드
-  // 정렬기능 추가 250703 
-  public Page<Board> getBoardList(int page) {
+  // 정렬기능 추가 250703 oatmealflyer
+  // 검색기능 추가, keyword 파라미터 추가 250707 oatmealflyer
+  public Page<Board> getBoardList(int page, String keyword) {
     List<Sort.Order> sorts = new ArrayList<>();
     sorts.add(Sort.Order.desc("createDate")); //JPA 클래스와 실제 DB의 컬럼간 이름 비교할 것 createDate == create_date. bno를 사용해도 무방 
     Pageable pageable = PageRequest.of(page, 10,Sort.by(sorts)); // 10을 변경해서 한 페이지에 20,30개도 표현가능
 
-    return this.boardRepository.findAll(pageable);
+    // return this.boardRepository.findAll(pageable);
+    return this.boardRepository.findAllByKeyword(keyword,pageable);
   }
 
   // SELECT * FROM board WHERE bno = ?

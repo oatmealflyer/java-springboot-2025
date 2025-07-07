@@ -874,8 +874,16 @@ https://github.com/user-attachments/assets/906a806c-018f-4053-8ca4-4fba52c4f9d4
   3. purify HTML 뷰어 
     1. CDN 추가 
     2. board_detail.html에 script 영역 추가
-
-
+    3. 게시판 content 출력 영역에 `id="content_view"`
+    4. 추가 플러그인 js 링크 추가 
+    <img src="./image/sb0017.png" width="600">
+7. 게시판 검색 기능 추가 
+  1. `@Query` : DATA JPA QUERY annotation ,JPA 상에서 SQL 쿼리와 유사한 방식으로 부가적인 기능을 만들고자할 때 사용 .
+     표준 SQL이 아니라서 DBeaver,MySQL WorkBench 등에서 사용불가 
+  2. BoardRepository에 JPA Query 어노테이션 사용 메서드 추가 
+  3. BoardService 에 getBoardList() 변경 
+  4. BoardController 에 getList() 키워드 파라미터 추가
+  5. board_list.html 검색 부분 추가 
 
  
 9. 나중에 추가해야 할 부분 

@@ -825,6 +825,62 @@ https://github.com/user-attachments/assets/906a806c-018f-4053-8ca4-4fba52c4f9d4
 
 ## 11일차 
 ## 스프링부트 Backboard 프로젝트(계속)
-5. DB 테이블 연동 작업(계속)
-  1. Board 게시글 삭제 추가 
-    1. ...
+
+1. VS CODE 재설치시 삭제해야 할 폴더 
+  - VS Code 제거 
+  - C:/Users/계정/.vscode : 플러그인 등 구성 
+  - C:/Users/계정/AppData/Roaming/Code : 전체설정, 백업 ,캐시, 등 가장 큰 폴더 
+  - VS Code 재설치 
+
+2. DB 테이블 연동 작업(계속)
+  1. board_detail.html 수정일자 표시 
+  2. Board 게시글 삭제 추가 
+    1. board_detail.html 삭제 버튼 추가 
+    2. ~~BoardRepository에 삭제처리 로직 추가~~ 
+    3. BoardService 에 삭제처리 로직 추가 
+    4. BoardController에 삭제처리 GetMapping 추가 
+
+3. 댓글에 대한 수정, 삭제 
+   - 게시판과 동일하게 작성하면 됨 
+
+4. 좋아요 기능 추가 
+  1. Board Entity에 `Set<Member>` like 속성 추가 
+  2. board_detail.html 좋아요 버튼 추가
+  3. BoardService like 관련 메서드 추가  
+  4. BoardController 에서 /board/like/{bno} GetMapping 추가 
+  5. Reply Entity 에 `Set<Member>` like 속성 추가 
+  6. board_detail.html 댓글 부분에 좋아요 버튼 추가 
+  7. ReplyService 답변 가져오기 메서드 getReply()추가 
+  8. ReplyService like 관련 메서드 추가 - 8,9 놓친듯 ? 
+  9. ReplyController 에서 /reply/like{rno} GetMapping 추가 
+
+5. 커스텀 에러 페이지 처리 
+  1. application properties 에서 Whitelabel Error 설정 해제 
+  2. templates/error/500.html
+  3. 에러 페이지 템플릿 추천 
+     https://freefrontend.com/html-500-templates/
+     https://freefrontend.com/html-404-templates/
+
+6. 웹 html 에디터 적용 
+  1. HTML 에디터 종류 
+    - https://ckeditor.com/ckeditor-5/ : 전세계에서 가장 유명한 무료 웹 에디터 
+    - https://alex-d.github.io/Trumbowyg/ : jQuery가 필요한 간단한 무료 웹 에디터 
+    - https://summernote.org/ : 정말 간단한 웹 에디터 
+    - https://simplemde.com/ : 마크다운만 사용하는 웹에디터 
+  2. Trumbowyg 적용 
+    1. jQuery 
+    2. layout.html에 trumbowyg 관련 css, js 링크 추가 
+    3. board_create.html 에 content textarea와 관련된 스크립트 추가 
+  3. purify HTML 뷰어 
+    1. CDN 추가 
+    2. board_detail.html에 script 영역 추가
+
+
+
+ 
+9. 나중에 추가해야 할 부분 
+  1. [ ] 회원가입 후 바로 로그인 되는 기능 
+  2. [ ] 로그인한 사람 표시기능 
+  3. [ ] 테마(라이크,다크)
+  4. [ ] 파일 업로드
+  5. [ ] 부트스트랩 프리테마로 변경 
